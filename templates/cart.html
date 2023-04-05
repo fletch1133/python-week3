@@ -1,0 +1,49 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <a>href="/empty-cart" class="btn btn-primary">Empty Cart</a>
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block body %}
+    <ul>
+    {% for melon_id, qty in session['cart'].items() %}
+   <h1>My Shopping Cart</h1>
+   <li>{{melon_id}}: {{qty}}</li>
+   {% endfor %}
+</ul>
+{% endblock %}
+
+{% block body %}
+
+    <table class = "table table-strpied mt-3">
+        <thead>
+            <tr>
+                <th>Nelon Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for melon in cart_melons %}
+        <tr>
+            <td>{{ melon.common_name }}</td>
+            <td>{{ melon_quantity }}</td>
+            <td>${{ "%0.2f" | format(melon.price) }}</td>
+            <td>${{ "%0.2f" | format(melon.total_cost) }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Total: ${{ "%0.2f" | format(order_total) }}</h3>
+{% endblock %}
+</body>
+</html>
