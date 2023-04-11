@@ -1,5 +1,6 @@
+from pprint import pprint
 import csv
-from pprint import pprint 
+
 
 class Melon():
     def __init__(
@@ -17,33 +18,15 @@ class Melon():
         self.image_url = image_url
         self.color = color
         self.seedless = seedless
+        self.price_str = f"${self.price:.2f}"
 
 def __repr__(self):
-    """Convenience method to show information about melon in console."""
-
     return(
         f"<Melon: {self.melon_id}, {self.common_name}>"
     )
 
 def price_str(self):
-    """Return price formatted as string $x.xx"""
-
     return f"${self.price:.2f}"
-
-def get_by_id(melon_id):
-    """Return a melon, given its ID."""
-
-    return melon_dict[melon_id]
-
-def get_all():
-    """Return list of melons."""
-
-    return list(melon_dict.values())
-
-with open("melons.csv") as csvfile:
-    rows = csv.DictReader(csvfile)
-    for row in rows:
-        print(row)
 
 melon_dict = {}
 
@@ -62,15 +45,14 @@ with open("melons.csv") as csvfile:
 
         melon_dict[melon_id] = melon
 
-@app.route("/melons")
-def all_melons():
-    """Return a page listing all the melons avaiable for purchase."""
 
-    melon_list = melons.get_all()
-    return render_template("all_melons.html", melon_list=melon_list)
+def get_by_id(melon_id):
+    """Return a melon, given its ID."""
 
-@app.route("/melon/<melon_id>")
-def melon_details(melon_id):
-    """Return a page showing all info about a melon. Also, provide a button to buy that melon."""
-    melon = melon.get_by_id(melon_id)
-    return render_template("melon_details.html", melon=melon)
+    return melon_dict[melon_id]
+
+
+def get_all():
+    """Return list of melons."""
+
+    return list(melon_dict.values())
